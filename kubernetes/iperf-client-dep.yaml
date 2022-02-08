@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf-client-deployment
+  labels:
+    app: iperf-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf-client
+  template:
+    metadata:
+      labels:
+        app: iperf-client
+    spec:
+      containers:
+      - name: iperf-client
+        image: moduluda/iperf-client:latest
+ 

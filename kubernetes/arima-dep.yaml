@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arima-deployment
+  labels:
+    app: arima
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arima
+  template:
+    metadata:
+      labels:
+        app: arima
+    spec:
+      containers:
+      - name: arima
+        image: moduluda/arima_module:latest

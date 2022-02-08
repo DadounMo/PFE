@@ -1,0 +1,4 @@
+keras
+numpy 
+scikit-learn
+influxdb_client

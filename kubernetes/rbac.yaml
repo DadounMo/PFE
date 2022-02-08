@@ -1,0 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: deployments-and-deployements-scale
+rules:
+- apiGroups: ["extensions", "apps"]
+  resources: ["deployments", "deployments/scale"]
+  verbs: ["get", "list","update"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: deployments-and-deployements-scale-rb
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default
+roleRef:
+  kind: Role
+  name: deployments-and-deployements-scale
+  apiGroup: ""

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf-server-deployment
+  labels:
+    app: iperf-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: iperf-server
+  template:
+    metadata:
+      labels:
+        app: iperf-server
+    spec:
+      containers:
+      - name: iperf-server
+        image: networkstatic/iperf3
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        args: ['-s']
+        ports:
+        - containerPort: 5201
+          name: server
+      terminationGracePeriodSeconds: 0
