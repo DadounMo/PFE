@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-servers
+  labels:
+    app: web-servers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-servers
+  template:
+    metadata:
+      labels:
+        app: web-servers
+    spec:
+      containers:
+      - name: nodejs
+        image: node-server
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 50m
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: web-servers
+  name: web-servers
+  namespace: default
+spec:
+  ports:
+  - name: web-servers-port
+    port: 3000
+  selector:
+    app: web-servers
+  sessionAffinity: None
+  type: NodePort
