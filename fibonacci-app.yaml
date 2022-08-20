@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fibonacci-app
+  labels:
+    app: fib
+spec:
+  selector:
+    matchLabels:
+      app: fib
+      tier: web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: fib
+        tier: web
+    spec:
+      containers:
+      - name: fibonacci-api
+        image: modadoun/fibonacci-api:latest
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fibonnaci-api
+  labels:
+    app: fib
+    tier: web
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: fib
+    tier: web
