@@ -92,9 +92,9 @@ spec:
     - metadata:
         name: data
       spec:
+      	storageClassName: manual
         accessModes:
         - ReadWriteOnce
-	storageClassName: manual
         resources:
           requests:
             storage: 10Gi
