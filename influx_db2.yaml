@@ -6,17 +6,17 @@ metadata:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs
+  name: ipv
+  labels:
+    type: local
 spec:
+  storageClassName: manual
   capacity:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  nfs:
-    server: nfs-server.default.svc.cluster.local
-    path: "/"
-  mountOptions:
-    - nfsvers=4.2
+  hostPath:
+    path: "/mnt/data"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -94,10 +94,11 @@ spec:
       spec:
         accessModes:
         - ReadWriteOnce
+		storageClassName: manual
         resources:
           requests:
             storage: 10Gi
-        volumeName: nfs
+        volumeMode: Filesystem
 ---
 apiVersion: batch/v1
 kind: Job
